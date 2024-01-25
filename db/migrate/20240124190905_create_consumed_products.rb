@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateConsumedProducts < ActiveRecord::Migration[7.1]
   def change
     create_table :consumed_products do |t|

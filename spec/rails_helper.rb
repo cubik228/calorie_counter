@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/rails_helper.rb
 # (или spec/spec_helper.rb, в зависимости от вашего проекта)
 

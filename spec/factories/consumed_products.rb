@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :consumed_product do
     quantity { Faker::Number.number(digits: 1) }
