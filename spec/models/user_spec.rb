@@ -10,8 +10,6 @@ RSpec.describe User, type: :model do
   describe 'Validations in model' do
     it { is_expected.to validate_presence_of(:email) }
 
-    # Remove the following line as it's not necessary
-    # it { is_expected.to validate_presence_of(:encrypted_password) }
   end
 
   describe 'Validations' do
