@@ -1,0 +1,13 @@
+<h1>index Product</h1>
+
+<%= link_to 'New',new_product_path %>
+<% @products.each do |product| %>
+  <tr>
+    <td><%= product.name %></td>
+    <td><%= product.calories_count %></td>
+    <td>
+      <%= link_to 'Edit', edit_product_path(product) %>
+      <%= button_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
+  </tr>
+<% end %>
