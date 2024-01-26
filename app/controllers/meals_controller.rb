@@ -8,6 +8,11 @@ class MealsController < ApplicationController
 
   def show
     @consumed_products = @meal.consumed_products
+    @total_calories = 0
+    @consumed_products.each do |consumed_product|
+      # Check if consumed_product.quantity is not nil before adding
+      @total_calories += consumed_product.quantity.to_i if consumed_product.quantity.present?
+    end
   end
 
   def new
@@ -50,7 +55,11 @@ class MealsController < ApplicationController
   def create_consumed_product
     @meal = current_user.meals.find(params[:id])
     @consumed_product = @meal.consumed_products.build(consumed_product_params)
-
+  
+    selected_product = Product.find(@consumed_product.product_id)
+  
+    @consumed_product.quantity = selected_product.calories_count
+  
     if @consumed_product.save
       redirect_to meal_path(@meal), notice: 'Product added to meal.'
     else
@@ -59,11 +68,21 @@ class MealsController < ApplicationController
     end
   end
 
+  def destroy_consumed_product
+    @meal = current_user.meals.find(params[:id])
+    @consumed_product = @meal.consumed_products.find(params[:consumed_product_id])
+    
+    @consumed_product.destroy
+  
+    redirect_to meal_path(@meal), notice: 'Product removed from meal.'
+  end
+
   private
 
   def consumed_product_params
     params.require(:consumed_product).permit(:product_id, :quantity)
   end
+  
 
   def set_meal
     @meal = current_user.meals.find(params[:id])

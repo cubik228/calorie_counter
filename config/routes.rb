@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     member do
       get 'add_product'
       post 'create_consumed_product'
+      delete 'destroy_consumed_product/:consumed_product_id', to: 'meals#destroy_consumed_product', as: 'destroy_consumed_product'
     end
   end
 
