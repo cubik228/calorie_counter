@@ -1,13 +1,16 @@
-<h1>index Product</h1>
+<h1>Products</h1>
 
-<%= link_to 'New',new_product_path %>
 <% @products.each do |product| %>
-  <tr>
-    <td><%= product.name %></td>
-    <td><%= product.calories_count %></td>
+    <h2>
+      <%= product.name %>
+      <%= product.calories_count %>
+    </h2>
     <td>
-      <%= link_to 'Edit', edit_product_path(product) %>
-      <%= button_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <div>
+        <%= link_to 'Edit', edit_product_path(product),class:'btn btn-outline-secondary btn-lg' %>
+      </div>
+      <div class="mb-3">
+        <%= button_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' },class:'btn btn-outline-danger btn-lg' %>
+      </div>
     </td>
-  </tr>
 <% end %>

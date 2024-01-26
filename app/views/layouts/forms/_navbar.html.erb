@@ -1,0 +1,106 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      padding-top: 105px;
+      background-color: #ffffff; 
+      margin: 0; 
+    }
+
+    .navbar {
+      background-color: #ffffff; 
+      border-bottom: 1px solid #ece8e8;
+      box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1); 
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .dropdown-menu {
+      
+      animation: fadeInOut 0.3s;
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <div class="d-flex align-items-center"> 
+        <%= link_to 'Home', root_path, class: "navbar-brand" %>
+      </div>
+
+        <div class="dropdown">
+          <button id="productDropdownButton" class="btn btn-secondary">Product</button>
+          <div id="productDropdownMenu" class="dropdown-menu ">
+            <%= link_to 'Products', products_path, class: "dropdown-item" %>
+            <%= link_to 'New', new_product_path, class: "dropdown-item" %>
+          </div>
+        </div>
+
+        <div class="dropdown ml-4">
+          <button id="mealDropdownButton" class="btn btn-secondary">Meal</button>
+          <div id="mealDropdownMenu" class="dropdown-menu">
+            <%= link_to 'Meals', meals_path, class: "dropdown-item" %>
+            <%= link_to 'New', new_meal_path, class: "dropdown-item" %>
+          </div>
+        </div>
+        
+      <h4><%= link_to 'Profile', new_meal_path, class: "dropdown-item" %> </h4>
+    <h4><%= link_to 'Setings', new_meal_path, class: "dropdown-item" %> </h4>
+  <h4><%= link_to 'New', new_meal_path, class: "dropdown-item" %> </h4>
+     
+    </nav>
+  
+  </header>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var productDropdownButton = document.getElementById('productDropdownButton');
+      var productDropdownMenu = document.getElementById('productDropdownMenu');
+
+      productDropdownButton.addEventListener('click', function() {
+        productDropdownMenu.classList.toggle('show');
+      });
+
+      var mealDropdownButton = document.getElementById('mealDropdownButton');
+      var mealDropdownMenu = document.getElementById('mealDropdownMenu');
+
+      mealDropdownButton.addEventListener('click', function() {
+        mealDropdownMenu.classList.toggle('show');
+      });
+
+      document.addEventListener('click', function(event) {
+        if (!event.target.matches('#productDropdownButton') && !event.target.matches('#mealDropdownButton')) {
+          var openDropdowns = document.querySelectorAll('.dropdown-menu');
+          openDropdowns.forEach(function(openDropdown) {
+            if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+            }
+          });
+        }
+      });
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
