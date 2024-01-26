@@ -5,6 +5,5 @@ class Meal < ApplicationRecord
   has_many :consumed_products
 
   validates :name, presence: true
-  validates :total_calories, presence: true
   validates :date, presence: true
 end

@@ -1,4 +1,3 @@
-<!-- app/views/meals/new.html.erb -->
 <h1>New Meal</h1>
 
 <%= form_with(model: @meal, url: meals_path, method: :post) do |form| %>
@@ -9,10 +8,7 @@
     <%= form.text_field :name %>
   </div>
 
-  <div>
-    <%= form.label :total_calories %>
-    <%= form.number_field :total_calories %>
-  </div>
+  
 
   <div>
     <%= form.label :date %>

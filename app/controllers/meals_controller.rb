@@ -3,9 +3,7 @@ class MealsController < ApplicationController
   before_action :set_meal, only: [:show, :edit, :update, :destroy]
 
   def index
-    #@meals = current_user.meals.includes(:consumed_products)
     @meals = Meal.all
-    #@meals = current_user.meals
   end
 
   def show
@@ -27,6 +25,7 @@ class MealsController < ApplicationController
   end
 
   def edit
+    @meal = Meal.find(params[:id])
   end
 
   def update
