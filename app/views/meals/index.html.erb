@@ -1,0 +1,9 @@
+<% @meals.each do |meal| %>
+<h1><%= meal.name %></h1>
+
+<p><strong>Total Calories:</strong> <%= meal.total_calories %></p>
+<p><strong>Date:</strong> <%= meal.date %></p>
+
+<%= link_to 'show this meal',meal_path(meal)%>
+<%= button_to 'delete',meal,method: :delete%>
+<%end%>

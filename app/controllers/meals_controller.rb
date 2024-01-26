@@ -1,5 +1,76 @@
+# app/controllers/meals_controller.rb
 class MealsController < ApplicationController
+  before_action :set_meal, only: [:show, :edit, :update, :destroy]
+
   def index
-    
+    #@meals = current_user.meals.includes(:consumed_products)
+    @meals = Meal.all
+    #@meals = current_user.meals
+  end
+
+  def show
+    @consumed_products = @meal.consumed_products
+  end
+
+  def new
+    @meal = Meal.new
+  end
+
+  def create
+    @meal = current_user.meals.build(meal_params)
+
+    if @meal.save
+      redirect_to meal_path(@meal), notice: 'Meal was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @meal.update(meal_params)
+      redirect_to meal_path(@meal), notice: 'Meal was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @meal.destroy
+    redirect_to meals_path, notice: 'Meal was successfully destroyed.'
+  end
+
+  def add_product
+    @meal = current_user.meals.find(params[:id])
+    @consumed_product = @meal.consumed_products.build
+    @products = Product.all
+  end
+
+  def create_consumed_product
+    @meal = current_user.meals.find(params[:id])
+    @consumed_product = @meal.consumed_products.build(consumed_product_params)
+
+    if @consumed_product.save
+      redirect_to meal_path(@meal), notice: 'Product added to meal.'
+    else
+      @products = Product.all
+      render 'add_product'
+    end
+  end
+
+  private
+
+  def consumed_product_params
+    params.require(:consumed_product).permit(:product_id, :quantity)
+  end
+
+  def set_meal
+    @meal = current_user.meals.find(params[:id])
+  end
+
+  def meal_params
+    params.require(:meal).permit(:name, :total_calories, :date)
   end
 end
