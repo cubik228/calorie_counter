@@ -20,6 +20,8 @@ gem 'sass-rails'
 gem 'turbolinks'
 gem 'uglifier'
 gem 'webpacker'
+gem 'popper_js'
+gem 'bootstrap'
 
 group :development, :test do
   gem 'bootsnap', require: false

@@ -4,18 +4,18 @@
   <%= render 'error_messages', object: @meal %>
 
   <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <h2><%= form.label :name %></h2>
+    <h2><%= form.text_field :name %></h2>
   </div>
 
   
 
   <div>
-    <%= form.label :date %>
-    <%= form.date_field :date %>
+    <h2><%= form.label :date %></h2>  
+    <h2><%= form.date_field :date %></h2>
   </div>
 
   <div>
-    <%= form.submit 'Create Meal' %>
+    <h2><%= form.submit 'Create Meal' ,class:'  btn btn-info btn-lg'%></h2>
   </div>
 <% end %>

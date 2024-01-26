@@ -1,9 +1,9 @@
 <% @meals.each do |meal| %>
 <h1><%= meal.name %></h1>
 
-<p><strong>Date:</strong> <%= meal.date %></p>
+<h2><strong>Date:</strong> <%= meal.date %><h2>
 
-<%= link_to 'show this meal',meal_path(meal)%>
-<%= link_to 'edit',edit_meal_path(meal)%>
-<%= button_to 'delete',meal,method: :delete%>
+<%= link_to 'show this meal',meal_path(meal),class:'btn btn-success btn-lg'%>
+<%= link_to 'edit',edit_meal_path(meal),class:'btn btn-outline-secondary btn-lg'%>
+<%= button_to 'delete',meal,method: :delete ,class:'btn btn-dark btn-lg'%>
 <%end%>

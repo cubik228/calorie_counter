@@ -1,16 +1,16 @@
 <%= form_with model: @product do |form| %>
 
   <div class="field">
-    <%= form.label :name %>
+    <h2><%= form.label :name %></h2>
     <%= form.text_field :name %>
   </div>
 
   <div class="field">
-    <%= form.label :calories_count %>
+    <h2><%= form.label :calories_count %></h2>
     <%= form.number_field :calories_count %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <h2><%= form.submit 'Create Product',class:'btn btn-info btn-lg'%></h2>
   </div>
 <% end %>
