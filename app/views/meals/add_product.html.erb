@@ -5,12 +5,7 @@
 
   <div>
     <%= form.label :product_id %>
-    <%= form.collection_select :product_id, @products, :id, :name %>
-  </div>
-
-  <div>
-    <%= form.label :quantity %>
-    <%= form.number_field :quantity %>
+    <%= select_tag 'consumed_product[product_id]', options_for_select(@products.map { |product| [ "#{product.name} (#{product.calories_count} calories)", product.id ] }), prompt: 'Select Product' %>
   </div>
 
   <div>
