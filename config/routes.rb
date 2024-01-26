@@ -5,7 +5,14 @@ Rails.application.routes.draw do
   resources :users
 
   resources :products
-  resources :meals
+
+   resources :meals do
+    member do
+      get 'add_product'
+      post 'create_consumed_product'
+    end
+  end
+
   resources :consumed_products
   
   root 'main#index'

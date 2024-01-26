@@ -1,0 +1,18 @@
+<h1><%= @meal.name %></h1>
+
+<p><strong>Total Calories:</strong> <%= @meal.total_calories %></p>
+<p><strong>Date:</strong> <%= @meal.date %></p>
+
+<h2>Consumed Products</h2>
+<% if @consumed_products.any? %>
+  <ul>
+    <% @consumed_products.each do |consumed_product| %>
+      <li><%= consumed_product.product.name %> - <%= consumed_product.quantity %> quantity</li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No consumed products for this meal.</p>
+<% end %>
+
+<%= link_to 'Add Product', add_product_meal_path(@meal) %>
+<%= link_to 'back',meals_path%>

@@ -1,0 +1,19 @@
+<h1>Add Product to Meal</h1>
+
+<%= form_with(model: [@meal, @consumed_product], url: create_consumed_product_meal_path(@meal), method: :post) do |form| %>
+  <%= render 'error_messages', object: @consumed_product %>
+
+  <div>
+    <%= form.label :product_id %>
+    <%= form.collection_select :product_id, @products, :id, :name %>
+  </div>
+
+  <div>
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div>
+    <%= form.submit 'Add Product to Meal' %>
+  </div>
+<% end %>

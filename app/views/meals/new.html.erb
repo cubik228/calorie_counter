@@ -1,0 +1,21 @@
+<h1>New Meal</h1>
+
+<%= form_with(model: @meal, url: meals_path, method: :post) do |form| %>
+  <%= render 'error_messages', object: @meal %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  
+
+  <div>
+    <%= form.label :date %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div>
+    <%= form.submit 'Create Meal' %>
+  </div>
+<% end %>
