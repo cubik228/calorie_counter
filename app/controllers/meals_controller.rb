@@ -1,24 +1,55 @@
 # app/controllers/meals_controller.rb
 class MealsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_meal, only: [:show, :edit, :update, :destroy]
 
   def index
-    @meals = Meal.all
+    @meals = current_user.meals
   end
 
   def show
-    unless @meal
-      redirect_to meals_path, alert: "Meal not found."
-      return
-    end
-  
     @consumed_products = @meal.consumed_products
     @total_calories = @consumed_products.sum(:quantity)
+  end
+
+  def generate_pdf
+    @meal = current_user.meals.find_by(id: params[:id])
+    @consumed_products = @meal.consumed_products
+    @total_calories = @consumed_products.sum(:quantity)
+  
+    respond_to do |format|
+      format.pdf do
+        pdf = Prawn::Document.new
+  
+        pdf.font 'Helvetica', size: 18
+        pdf.text "Meal Report", align: :center
+        pdf.move_down 10
+  
+        pdf.font 'Helvetica', size: 14
+        pdf.text "Name: #{@meal.name}"
+        pdf.text "Total Calories: #{@total_calories}"
+        pdf.text "Date: #{@meal.date}"
+        pdf.move_down 20
+  
+        if @consumed_products.any?
+          pdf.font 'Helvetica', size: 12
+          pdf.text "Consumed Products:", style: :italic
+          @consumed_products.each do |consumed_product|
+            pdf.text "#{consumed_product.product.name} - #{consumed_product.quantity} calories", indent_paragraphs: 20
+          end
+        else
+          pdf.font 'Helvetica', size: 12, style: :italic
+          pdf.text 'No consumed products for this meal.'
+        end
+  
+        send_data pdf.render, filename: 'meal_report.pdf', type: 'application/pdf', disposition: 'inline'
+      end
+    end
   end
   
 
   def new
-    @meal = Meal.new
+    @meal = current_user.meals.build
   end
 
   def create
@@ -30,9 +61,8 @@ class MealsController < ApplicationController
       render :new
     end
   end
-
+ 
   def edit
-    @meal = Meal.find(params[:id])
   end
 
   def update
@@ -57,11 +87,10 @@ class MealsController < ApplicationController
   def create_consumed_product
     @meal = current_user.meals.find(params[:id])
     @consumed_product = @meal.consumed_products.build(consumed_product_params)
-  
+
     selected_product = Product.find(@consumed_product.product_id)
-  
     @consumed_product.quantity = selected_product.calories_count
-  
+
     if @consumed_product.save
       redirect_to meal_path(@meal), notice: 'Product added to meal.'
     else
@@ -73,9 +102,9 @@ class MealsController < ApplicationController
   def destroy_consumed_product
     @meal = current_user.meals.find(params[:id])
     @consumed_product = @meal.consumed_products.find(params[:consumed_product_id])
-    
+
     @consumed_product.destroy
-  
+
     redirect_to meal_path(@meal), notice: 'Product removed from meal.'
   end
 
@@ -84,17 +113,14 @@ class MealsController < ApplicationController
   def consumed_product_params
     params.require(:consumed_product).permit(:product_id, :quantity)
   end
-  
 
   def set_meal
     @meal = current_user.meals.find_by(id: params[:id])
-  
+
     unless @meal
-      redirect_to meals_path, alert: "Meal not found."
+      redirect_to meals_path, alert: 'Meal not found.'
     end
   end
-  
-  
 
   def meal_params
     params.require(:meal).permit(:name, :total_calories, :date)

@@ -19,4 +19,5 @@
 <% end %>
 
 <%= link_to 'Add Product', add_product_meal_path(@meal) %>
+<%= link_to 'Generate PDF', generate_pdf_meal_path(@meal, format: :pdf), class: 'btn btn-primary' %>
 <%= link_to 'Back', meals_path ,class: "btn btn-primary"%>

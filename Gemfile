@@ -21,6 +21,7 @@ gem 'uglifier'
 gem 'webpacker'
 gem 'popper_js'
 gem 'bootstrap', '5.3.2'
+gem 'prawn'
 
 group :development, :test do
   gem 'bootsnap', require: false
@@ -49,4 +50,3 @@ group :test do
 end
 
 gem 'tzinfo-data', platforms: %i[mswin mswin64 mingw x64_mingw jruby]
-  
