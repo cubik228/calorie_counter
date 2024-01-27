@@ -7,13 +7,15 @@ class MealsController < ApplicationController
   end
 
   def show
-    @consumed_products = @meal.consumed_products
-    @total_calories = 0
-    @consumed_products.each do |consumed_product|
-      # Check if consumed_product.quantity is not nil before adding
-      @total_calories += consumed_product.quantity.to_i if consumed_product.quantity.present?
+    unless @meal
+      redirect_to meals_path, alert: "Meal not found."
+      return
     end
+  
+    @consumed_products = @meal.consumed_products
+    @total_calories = @consumed_products.sum(:quantity)
   end
+  
 
   def new
     @meal = Meal.new
@@ -85,8 +87,14 @@ class MealsController < ApplicationController
   
 
   def set_meal
-    @meal = current_user.meals.find(params[:id])
+    @meal = current_user.meals.find_by(id: params[:id])
+  
+    unless @meal
+      redirect_to meals_path, alert: "Meal not found."
+    end
   end
+  
+  
 
   def meal_params
     params.require(:meal).permit(:name, :total_calories, :date)
