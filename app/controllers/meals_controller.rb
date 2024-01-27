@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # app/controllers/meals_controller.rb
 class MealsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_meal, only: [:show, :edit, :update, :destroy]
+  before_action :set_meal, only: %i[show edit update destroy]
 
   def index
     @meals = current_user.meals
@@ -16,24 +18,24 @@ class MealsController < ApplicationController
     @meal = current_user.meals.find_by(id: params[:id])
     @consumed_products = @meal.consumed_products
     @total_calories = @consumed_products.sum(:quantity)
-  
+
     respond_to do |format|
       format.pdf do
         pdf = Prawn::Document.new
-  
+
         pdf.font 'Helvetica', size: 18
-        pdf.text "Meal Report", align: :center
+        pdf.text 'Meal Report', align: :center
         pdf.move_down 10
-  
+
         pdf.font 'Helvetica', size: 14
         pdf.text "Name: #{@meal.name}"
         pdf.text "Total Calories: #{@total_calories}"
         pdf.text "Date: #{@meal.date}"
         pdf.move_down 20
-  
+
         if @consumed_products.any?
           pdf.font 'Helvetica', size: 12
-          pdf.text "Consumed Products:", style: :italic
+          pdf.text 'Consumed Products:', style: :italic
           @consumed_products.each do |consumed_product|
             pdf.text "#{consumed_product.product.name} - #{consumed_product.quantity} calories", indent_paragraphs: 20
           end
@@ -41,12 +43,11 @@ class MealsController < ApplicationController
           pdf.font 'Helvetica', size: 12, style: :italic
           pdf.text 'No consumed products for this meal.'
         end
-  
+
         send_data pdf.render, filename: 'meal_report.pdf', type: 'application/pdf', disposition: 'inline'
       end
     end
   end
-  
 
   def new
     @meal = current_user.meals.build
@@ -61,9 +62,8 @@ class MealsController < ApplicationController
       render :new
     end
   end
- 
-  def edit
-  end
+
+  def edit; end
 
   def update
     if @meal.update(meal_params)
@@ -117,9 +117,9 @@ class MealsController < ApplicationController
   def set_meal
     @meal = current_user.meals.find_by(id: params[:id])
 
-    unless @meal
-      redirect_to meals_path, alert: 'Meal not found.'
-    end
+    return if @meal
+
+    redirect_to meals_path, alert: 'Meal not found.'
   end
 
   def meal_params

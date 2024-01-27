@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/controllers/products_controller_spec.rb
 
 require 'rails_helper'
@@ -31,9 +33,9 @@ RSpec.describe ProductsController, type: :controller do
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'creates a new product' do
-        expect {
+        expect do
           post :create, params: { product: FactoryBot.attributes_for(:product) }
-        }.to change(Product, :count).by(1)
+        end.to change(Product, :count).by(1)
       end
 
       it 'redirects to products_path' do
@@ -44,9 +46,9 @@ RSpec.describe ProductsController, type: :controller do
 
     context 'with invalid attributes' do
       it 'does not create a new product' do
-        expect {
+        expect do
           post :create, params: { product: { name: nil, calories_count: nil } }
-        }.not_to change(Product, :count)
+        end.not_to change(Product, :count)
       end
 
       it 'renders the new template' do
@@ -104,9 +106,9 @@ RSpec.describe ProductsController, type: :controller do
     let!(:product) { FactoryBot.create(:product) }
 
     it 'destroys the requested product' do
-      expect {
+      expect do
         delete :destroy, params: { id: product.id }
-      }.to change(Product, :count).by(-1)
+      end.to change(Product, :count).by(-1)
     end
 
     it 'redirects to products_path' do

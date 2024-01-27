@@ -1,5 +1,6 @@
-class ProductsController < ApplicationController
+# frozen_string_literal: true
 
+class ProductsController < ApplicationController
   def index
     @products = Product.all
   end
@@ -24,19 +25,17 @@ class ProductsController < ApplicationController
 
   def update
     set_product
-  
+
     if @product.update(product_params)
       redirect_to products_path, notice: 'Product was successfully updated.'
     else
       render :edit
     end
   end
-  
-  
 
   def destroy
     set_product
-  
+
     if @product
       @product.destroy
       redirect_to products_path, notice: 'Product was successfully destroyed.'
@@ -44,7 +43,6 @@ class ProductsController < ApplicationController
       redirect_to products_path, alert: 'Product not found.'
     end
   end
-  
 
   private
 
@@ -55,5 +53,4 @@ class ProductsController < ApplicationController
   def set_product
     @product = Product.find_by(id: params[:id])
   end
-  
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe MealsController, type: :controller do
@@ -60,9 +62,9 @@ RSpec.describe MealsController, type: :controller do
   describe 'POST #create' do
     context 'with valid parameters' do
       it 'creates a new Meal' do
-        expect {
+        expect do
           post :create, params: { meal: attributes_for(:meal) }
-        }.to change(Meal, :count).by(1)
+        end.to change(Meal, :count).by(1)
       end
 
       it 'redirects to the created meal' do
@@ -73,9 +75,9 @@ RSpec.describe MealsController, type: :controller do
 
     context 'with invalid parameters' do
       it 'does not create a new Meal' do
-        expect {
+        expect do
           post :create, params: { meal: attributes_for(:meal, name: nil) }
-        }.not_to change(Meal, :count)
+        end.not_to change(Meal, :count)
       end
 
       it 'renders the new template' do
@@ -86,5 +88,4 @@ RSpec.describe MealsController, type: :controller do
   end
 
   # Add similar tests for edit, update, destroy, add_product, create_consumed_product actions
-
 end

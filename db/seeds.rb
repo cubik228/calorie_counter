@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 Product.destroy_all
 Meal.destroy_all
@@ -10,8 +11,3 @@ User.destroy_all
   )
 end
 puts "Created #{Product.count} Products"
-
-
-
-
-

@@ -12,8 +12,8 @@ class Meal < ApplicationRecord
   private
 
   def name_should_be_in_english
-    unless name =~ /\A[a-zA-Z]+\z/
-      errors.add(:name, "should contain only English letters")
-    end
+    return if name =~ /\A[a-zA-Z]+\z/
+
+    errors.add(:name, 'should contain only English letters')
   end
 end
