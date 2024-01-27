@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 ruby '3.0.0'
 
 gem 'activestorage'
-gem 'bootstrap-sass'
 gem 'coffee-rails'
 gem 'devise'
 gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
@@ -21,7 +20,7 @@ gem 'turbolinks'
 gem 'uglifier'
 gem 'webpacker'
 gem 'popper_js'
-gem 'bootstrap'
+gem 'bootstrap', '5.3.2'
 
 group :development, :test do
   gem 'bootsnap', require: false
@@ -50,3 +49,4 @@ group :test do
 end
 
 gem 'tzinfo-data', platforms: %i[mswin mswin64 mingw x64_mingw jruby]
+  
