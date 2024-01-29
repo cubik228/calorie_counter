@@ -3,7 +3,7 @@
 # app/controllers/meals_controller.rb
 class MealsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_meal, only: %i[show edit update destroy]
+  before_action :set_meal, only: %i[show edit update destroy add_product destroy_consumed_product create_consumed_product]
 
   def index
     @meals = current_user.meals
@@ -79,13 +79,11 @@ class MealsController < ApplicationController
   end
 
   def add_product
-    @meal = current_user.meals.find(params[:id])
     @consumed_product = @meal.consumed_products.build
     @products = Product.all
   end
 
   def create_consumed_product
-    @meal = current_user.meals.find(params[:id])
     @consumed_product = @meal.consumed_products.build(consumed_product_params)
 
     selected_product = Product.find(@consumed_product.product_id)
@@ -100,7 +98,6 @@ class MealsController < ApplicationController
   end
 
   def destroy_consumed_product
-    @meal = current_user.meals.find(params[:id])
     @consumed_product = @meal.consumed_products.find(params[:consumed_product_id])
 
     @consumed_product.destroy
