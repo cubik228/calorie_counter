@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
+  before_action :set_product, only: %i[update destroy]
+
   def index
     @products = Product.all
   end
@@ -24,8 +26,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    set_product
-
     if @product.update(product_params)
       redirect_to products_path, notice: 'Product was successfully updated.'
     else
@@ -34,8 +34,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    set_product
-
     if @product
       @product.destroy
       redirect_to products_path, notice: 'Product was successfully destroyed.'

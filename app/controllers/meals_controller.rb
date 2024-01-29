@@ -3,7 +3,8 @@
 # app/controllers/meals_controller.rb
 class MealsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_meal, only: %i[show edit update destroy add_product destroy_consumed_product create_consumed_product]
+  before_action :set_meal,
+                only: %i[show edit update destroy add_product destroy_consumed_product create_consumed_product]
 
   def index
     @meals = current_user.meals
