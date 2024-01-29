@@ -9,7 +9,7 @@ require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 require 'factory_bot_rails'
 require 'shoulda-matchers'
-
+require 'capybara/rspec'
 # ...
 
 RSpec.configure do |config|
@@ -18,7 +18,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  # Configure FactoryBot
   config.include FactoryBot::Syntax::Methods
 
   Shoulda::Matchers.configure do |shoulda_config|
@@ -27,6 +26,7 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
+  
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
 end
