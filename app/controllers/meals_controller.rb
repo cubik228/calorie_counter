@@ -7,8 +7,13 @@ class MealsController < ApplicationController
                 only: %i[show edit update destroy add_product destroy_consumed_product create_consumed_product]
 
   def index
-    @meals = current_user.meals
+    @meals = if params[:search].present?
+               current_user.meals.where('name LIKE ?', "%#{params[:search]}%")
+             else
+               current_user.meals
+             end
   end
+                
 
   def show
     @consumed_products = @meal.consumed_products

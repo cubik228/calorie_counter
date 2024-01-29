@@ -1,3 +1,10 @@
+
+<h2>Meals</h2>
+<%= form_tag(meals_path, method: :get) do %>
+  <%= text_field_tag :search, params[:search], placeholder: 'Search by name' %>
+  <%= submit_tag 'Search',class:"mb-3" %>
+<% end %>
+
 <% @meals.each do |meal| %>
 <h1><%= meal.name %></h1>
 
