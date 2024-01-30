@@ -22,6 +22,7 @@ gem 'sass-rails'
 gem 'turbolinks'
 gem 'uglifier'
 gem 'webpacker'
+gem 'activeadmin'
 
 group :development, :test do
   gem 'bootsnap', require: false
